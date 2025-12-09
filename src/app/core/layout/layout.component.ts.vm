@@ -1,0 +1,28 @@
+#set($env.language = "TypeScript")
+#parse("_include/standard-macros.vm")
+// Layout Component design pattern 
+// providing a consistent structure across multiple pages
+#parse("_include/standard-ts-header.vm")
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: 'app-layout',
+  imports: [RouterOutlet, RouterLink],
+  templateUrl: './layout.component.html',
+  styleUrl: './layout.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class LayoutComponent {
+  menu = [
+    { label: 'Home', icon: '🏠', link: '/' },
+#foreach ( $entity in $model.entities )
+$__#set($icon = '')
+$__#if( $entity.hasTag('Icon') ) 
+$____#set($icon = "icon: '$entity.tagValue('Icon')',")
+$__#end
+$__#setEntityVariables($entity)
+    { label: '$entity.name', ${icon} link: '/${entPath}' },
+#end
+  ];
+}

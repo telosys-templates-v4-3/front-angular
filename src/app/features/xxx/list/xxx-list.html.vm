@@ -1,0 +1,71 @@
+#parse("_include/standard-variables.vm")
+#parse("_include/standard-macros.vm")
+#setEntityVariables($entity)
+<div class="d-flex justify-content-between">
+  <span class="h2">${entity.name} Management</span>
+  <button type="button" class="btn btn-primary" routerLink="/${entPath}/new">Add New ${entity.name}</button>
+</div>
+@if(loading()) {
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only"></span>
+    </div>
+  </div>
+}
+
+<table class="table table-striped mt-3" [class.d-none]="loading()">
+  <thead>
+    <tr>
+#foreach($attribute in $entity.keyAttributes)
+      <th>$fn.capitalize($attribute.name)</th>
+#end
+#foreach($attribute in $entity.nonKeyAttributes)
+      <th>$fn.capitalize($attribute.name)</th>
+#end
+      <th>Actions</th>
+    </tr>
+  </thead>
+#set($pkAttr = $entity.keyAttributesNamesAsString(", ", "${entlc}.", "")  )
+#if ( $entity.hasCompositePrimaryKey() )
+$__#set($track = "[$pkAttr]")
+#else
+$__#set($track = $pkAttr)
+#end
+  <tbody>
+## "track" in "@for" = how to uniquely identify each item in the loop (so Angular can update the DOM efficiently)
+## examples:
+##   @for (item of items | async ; track item.id ) 
+##   @for (item of items | async ; track [item.part1, item.part2, item.part3]) 
+## Rem: "async" changes the source from a plain array to an observable or promise that emits an array.
+    @for(${entlc} of ${entList} | async; track ${track}) {
+      <tr>
+#foreach($attribute in $entity.keyAttributes)
+        <td>
+          <span>{{ ${entlc}.${attribute.name} }}</span>
+        </td>
+#end
+#foreach($attribute in $entity.nonKeyAttributes)
+        <td>{{ ${entlc}.${attribute.name}  }}</td>
+#end
+        <td>
+          <div class="btn-group btn-group-sm" role="group">
+            <button 
+              type="button" 
+              class="btn btn-outline-primary"
+              (click)="edit${entity.name}(${pkAttr})"
+              title="Edit ${entity.name}">
+              Edit
+            </button>
+            <button 
+              type="button" 
+              class="btn btn-outline-danger"
+              (click)="delete${entity.name}(${pkAttr})"
+              title="Delete ${entity.name}">
+              Delete
+            </button>
+          </div>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
