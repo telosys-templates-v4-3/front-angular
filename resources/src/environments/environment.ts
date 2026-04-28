@@ -1,4 +1,4 @@
 // Environment configuration for PRODUCTION mode
 export const environment = {
-    apiUrl: 'https://api.example.com/' // Production server URI root
+    apiRootUrl: 'https://production-server.com/api/v1/' // Production server root URI with trailing slash
 };
