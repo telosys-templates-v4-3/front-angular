@@ -12,7 +12,7 @@ Technical stack:
 
 ## Code generation
 Telosys command to generate the front-end application:
-```gen * * -r [-y] ```
+```gen * * -r [-y] ```   
 NB: do not forget to add the "-r" option in order to generate all the static resources.
 
 ## Compile and run the application
