@@ -3,8 +3,10 @@
 ## Compile and run the application
 1. Navigate to the project directory and define API root URL   
 in the environment file (src/environments/environment.development.ts)
+
 2. Install the dependencies:
 ```npm install```
+
 3. Start the development server:
 ```npm start```
 'npm start' is an alias for 'ng serve' so a local development server will be started and the application will be compiled.  

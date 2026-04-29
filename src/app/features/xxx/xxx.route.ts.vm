@@ -22,8 +22,7 @@ import { ${refClassName}Service } from "@features/${refClassNameLC}/${refClassNa
 import { ${refClassName} } from "@features/${refClassNameLC}/${refClassNameLC}";
 #end
 
-## Resolver for current entity 
-// ${entity.name} route resolver (it fetches a single object)
+// Resolver for ${entity.name} single entity (it fetches a single object)
 export const ${entlc}Resolver: ResolveFn<${entity.name}> = (route: ActivatedRouteSnapshot) => {
   const service = inject(${entity.name}Service);
   // Get Primary Key elements 
@@ -37,6 +36,12 @@ $__#set( $unused = $list.add($keyPart) )
 #end
   // Call service to get a single ${entity.name} by Primary Key 
   return service.get${entity.name}ByPK($fn.join($list, ", ")); // PK
+};
+
+// Resolver for list of ${entity.name} (it fetches a list of N objects)
+export const ${entlc}ListResolver : ResolveFn<${entity.name}[]> = () => {
+  const service = inject(${entity.name}Service);
+  return service.get${entity.name}List();
 };
 
 ## Resolvers for ManyToOne and OneToOne references 

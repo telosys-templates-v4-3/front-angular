@@ -3,7 +3,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "rootDir": "./src",
     "outDir": "./dist/out-tsc",
     "strict": true,
     "noImplicitOverride": true,
@@ -18,11 +17,11 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
+    "baseUrl" : "./src",
     "paths": {
-      "@shared/*": ["./src/app/shared/*"],
-      "@features/*": ["./src/app/features/*"],
-      "@core/*": ["./src/app/core/*"],
-      "environments/*": ["./src/environments/*"]
+      "@shared/*": ["app/shared/*"],
+      "@features/*": ["app/features/*"],
+      "@core/*": ["app/core/*"]
     }
   },
   "angularCompilerOptions": {
