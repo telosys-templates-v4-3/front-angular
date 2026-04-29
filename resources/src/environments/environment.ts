@@ -1,4 +1,6 @@
-// Environment configuration for PRODUCTION mode
+// Environment configuration for 'ng build' mode (CI/CD pipeline, Qualif, Prod, etc.)
 export const environment = {
-    apiRootUrl: 'https://production-server.com/api/v1/' // Production server root URI with trailing slash
+    apiRootUrl: '{ci-server-var}/api/v1/' // CI/CD variable substitution
+    // example with hardcoded value for production server:
+    //  apiRootUrl: 'https://my-production-server.com/api/v1/'        
 };
