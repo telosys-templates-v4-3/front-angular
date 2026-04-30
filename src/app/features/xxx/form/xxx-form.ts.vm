@@ -73,7 +73,13 @@ $__#if( $validatorsMap.containsKey($attribute.name) )
 $____#set( $validators = $validatorsMap[$attribute.name] )
 $____#set( $validatorsArray = ', [' + $fn.join($validators,', ') + ']')
 $__#end
-      ${attribute.name}: [ this.${entlc}?.${attribute.name} || ''$validatorsArray ]${comma}
+$__#if( $attribute.isBooleanType() )
+      ${attribute.name}: [ this.${entlc}?.${attribute.name} ?? false ]${comma}
+$__#elseif( $attribute.isTemporalType() )
+      ${attribute.name}: [ this.${entlc}?.${attribute.name} ?? null $validatorsArray ]${comma}
+$__#else
+      ${attribute.name}: [ this.${entlc}?.${attribute.name} || '' $validatorsArray ]${comma}
+$__#end
 #end    
     });
   }
