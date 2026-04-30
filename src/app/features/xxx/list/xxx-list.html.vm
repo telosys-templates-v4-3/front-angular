@@ -26,17 +26,21 @@
     </tr>
   </thead>
 #set($pkAttr = $entity.keyAttributesNamesAsString(", ", "${entlc}.", "")  )
+#*
 #if ( $entity.hasCompositePrimaryKey() )
 $__#set($track = "[$pkAttr]")
 #else
 $__#set($track = $pkAttr)
 #end
+*#
   <tbody>
 ## "track" in "@for" = how to uniquely identify each item in the loop (so Angular can update the DOM efficiently)
 ## examples:
 ##   @for (item of items | async ; track item.id ) 
-##   @for (item of items | async ; track [item.part1, item.part2, item.part3]) 
+##   @for (item of items | async ; track item.pk1 + '-' + item.pk2 )   
+##   concat composite PK with a string separator => result is a string whatever the type of PK attributes (string, number, uuid, etc.)
 ## Rem: "async" changes the source from a plain array to an observable or promise that emits an array.
+#set($track = $entity.keyAttributesNamesAsString(" + '-' + ", "${entlc}.", ""))
     @for(${entlc} of ${entList} | async; track ${track}) {
       <tr>
 #foreach($attribute in $entity.keyAttributes)

@@ -22,7 +22,7 @@ import { ${refClassName}Service } from "@features/${refClassNameLC}/${refClassNa
 import { ${refClassName} } from "@features/${refClassNameLC}/${refClassNameLC}";
 #end
 
-// Resolver for ${entity.name} single entity (it fetches a single object)
+// Resolver for ${entity.name} single entity (it fetches a single object using the Primary Key)
 export const ${entlc}Resolver: ResolveFn<${entity.name}> = (route: ActivatedRouteSnapshot) => {
   const service = inject(${entity.name}Service);
   // Get Primary Key elements 
@@ -74,8 +74,9 @@ export const routes: Routes = [
   { path: 'edit/:id', component: ${entity.name}FormComponent, resolve: { ${entlc}: ${entlc}Resolver } }
 #end
 *#
+#set($pkFields = $entity.keyAttributesNamesAsString("/:"))
 ## Temporary, just for test without ref resolvers
   { path: 'new', component: ${entity.name}FormComponent },
-  { path: 'edit/:id', component: ${entity.name}FormComponent, resolve: { ${entlc}: ${entlc}Resolver } }
+  { path: 'edit/:$pkFields', component: ${entity.name}FormComponent, resolve: { ${entlc}: ${entlc}Resolver } }
 
 ];
