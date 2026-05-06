@@ -20,6 +20,8 @@ export class LayoutComponent {
 $__#set($icon = '')
 $__#if( $entity.hasTag('Icon') ) 
 $____#set($icon = "icon: '$entity.tagValue('Icon')',")
+$__#else
+$____#set($icon = "icon: '🔵',")
 $__#end
 $__#setEntityVariables($entity)
     { label: '$entity.name', ${icon} link: '/${entPath}' },
